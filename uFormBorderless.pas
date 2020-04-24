@@ -107,16 +107,29 @@ begin
 
   if
     (WindowState = wsNormal) and
-    (BorderStyle in [bsSizeable, bsSizeToolWin]) and
-    (Msg.YPos - BoundsRect.Top <= ResizeSpace)
+    (BorderStyle in [bsSizeable, bsSizeToolWin])
   then
     begin
-      if Msg.XPos - BoundsRect.Left <= 2 * ResizeSpace then
-        Msg.Result := HTTOPLEFT
-      else if BoundsRect.Right - Msg.XPos <= 2 * ResizeSpace then
-        Msg.Result := HTTOPRIGHT
-      else
-        Msg.Result := HTTOP;
+      if ( Msg.YPos - BoundsRect.Top <= ResizeSpace ) then
+      begin
+        if ( Msg.XPos - BoundsRect.Left <= 2 * ResizeSpace ) then Msg.Result := HTTOPLEFT
+        else if ( BoundsRect.Right - Msg.XPos <= 2 * ResizeSpace ) then Msg.Result := HTTOPRIGHT
+      else Msg.Result := HTTOP;
+      end else
+      if ( Msg.YPos >= BoundsRect.Bottom - ResizeSpace ) then
+      begin
+        if ( Msg.XPos - BoundsRect.Left <= 2 * ResizeSpace ) then Msg.Result := HTBOTTOMLEFT
+        else if ( BoundsRect.Right - Msg.XPos <= 2 * ResizeSpace ) then Msg.Result := HTBOTTOMRIGHT
+        else Msg.Result := HTBOTTOM;
+      end else
+      if ( Msg.XPos >= BoundsRect.Right - ResizeSpace ) then
+      begin
+        if ( BoundsRect.Right - Msg.XPos <= 2 * ResizeSpace ) then Msg.Result := HTRIGHT;
+      end else
+      if ( Msg.XPos - BoundsRect.Left <= ResizeSpace ) then
+      begin
+        if ( Msg.XPos - BoundsRect.Left <= 2 * ResizeSpace ) then Msg.Result := HTLEFT;
+      end;
     end;
 end;
 
