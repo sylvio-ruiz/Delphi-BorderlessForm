@@ -114,7 +114,7 @@ begin
       begin
         if ( Msg.XPos - BoundsRect.Left <= 2 * ResizeSpace ) then Msg.Result := HTTOPLEFT
         else if ( BoundsRect.Right - Msg.XPos <= 2 * ResizeSpace ) then Msg.Result := HTTOPRIGHT
-      else Msg.Result := HTTOP;
+        else Msg.Result := HTTOP;
       end else
       if ( Msg.YPos >= BoundsRect.Bottom - ResizeSpace ) then
       begin
